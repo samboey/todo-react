@@ -8,13 +8,24 @@ class List extends React.Component {
     }
   }
 
-  addItem(){
-    debugger;
+  addItem(event){
+    let updatedList = this.state.list;
+    updatedList.push(this.state.word);
+    console.log(updatedList)
+    this.setState({list: updatedList});
+    this.setState({word:""})
   }
 
-  changeHandler(){
-    debugger;
+  changeHandler(event){
+    console.log(event.target.value);
+
+    let currentValue = event.target.value.trim();
+    {
+        this.setState({word:currentValue});
+    }
   }
+
+
 
   render() {
       // render the list with a map() here
@@ -22,9 +33,15 @@ class List extends React.Component {
       console.log("rendering");
       return (
         <div className="list">
-          <input onChange={()=>{this.changeHandler()}} value={this.state.word}/>
-          <button onClick={()=>{this.addItem()}}>add item</button>
+          <input onChange={(event)=>{this.changeHandler(event)}} value={this.state.word}/>
+          <button onClick={(event)=>{this.addItem(event)}}>add item</button>
+
+        <div>
+            <ul>
+            {this.state.list.map(items => {return <li>{items}</li>})}
+            </ul>
         </div>
+    </div>
       );
   }
 }
@@ -33,4 +50,3 @@ ReactDOM.render(
     <List/>,
     document.getElementById('root')
 );
-
